@@ -2,18 +2,85 @@
 <div class="container">
   <mat-card class="mat-elevation-z8">
     <mat-card-header>
-    <mat-card-title>Lista de Tarefas</mat-card-title>
-  </mat-card-header>
+      <mat-card-title>Lista de Tarefas</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
       <mat-divider></mat-divider>
 
+      <form [formGroup]="form">
+      <div class="input-task">
+          <mat-form-field appearance="outline">
+            <mat-label>Preencha a tarefa</mat-label>
+            <input matInput formControlName="task">
+          </mat-form-field>
+          <button mat-icon-button [disabled]="form.invalid" (click)="addTask()">
+            <mat-icon matSuffix>add</mat-icon>
+          </button>
+        </div>
+      </form>
+
+
+      <ng-container *ngIf="todoNotComplete.length == 0; else todoNotCompleteTemplate">
+        <div class="todo-item">
+          <span class="todo-item-msg">Nenhuma tarefa adicionada </span>
+        </div>
+      </ng-container>
+
+
+      <ng-template #todoNotCompleteTemplate>
+        <ng-container  *ngFor="let item of todoNotComplete">
+
+          <div class="todo-item">
+            <span> {{item.value}}</span>
+            <section class="actions">
+
+              <button mat-icon-button class="btn-primary" (click)="toggleTask(item)">
+                <mat-icon>check_circle</mat-icon>
+              </button>
+              <button mat-icon-button class="btn-secondary" (click)="removeTask(item)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </section>
+          </div>
+        </ng-container>
+
+      </ng-template>
+
+     <div class="title">
+       <span>Tarefas Concluidas</span>
+     </div>
+
+
+
+     <ng-container *ngIf="todoComplete.length == 0; else todoCompleteTemplate">
+      <div class="todo-item">
+        <span class="todo-item-msg">Nenhuma tarefa concluida</span>
+      </div>
+    </ng-container>
+
+
+    <ng-template #todoCompleteTemplate>
+
+      <ng-container *ngFor="let item of todoComplete">
+
+        <div class="todo-item">
+          <span> {{item.value}}</span>
+          <section class="actions">
+
+            <button mat-icon-button class="btn-primary" (click)="toggleTask(item)">
+              <mat-icon>unpublished</mat-icon>
+            </button>
+            <button mat-icon-button class="btn-secondary" (click)="removeTask(item)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </section>
+        </div>
+      </ng-container>
+    </ng-template>
 
 
 
 
-      <mat-divider></mat-divider>
-      <h3>Tarefas Concluidas</h3>
-      <mat-divider></mat-divider>
 
     </mat-card-content>
   </mat-card>
