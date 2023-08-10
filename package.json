@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --project=todo-mercado --host=0.0.0.0 --disable-host-check",
-    "build": "ng build --base-href /todo-mercado/",
+    "build": " ng build --base-href /todo-mercado/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
